@@ -1,0 +1,14 @@
+services:
+  nginx:
+    image: nginx:stable
+    container_name: nginx-basic-auth
+    ports:
+      - "8080:80"
+    volumes:
+      # Server Block nop bai -> ghi de default.conf trong container
+      - ./nginx-admin.conf:/etc/nginx/conf.d/default.conf:ro
+      # File mat khau mau -> dung vi tri chuan /etc/nginx/.htpasswd
+      # (khong dat trong /var/www/ de tranh ro ri qua web)
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      # Ma nguon tinh mau
+      - ./html:/var/www/html:ro
